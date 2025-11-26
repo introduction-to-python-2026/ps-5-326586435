@@ -31,7 +31,6 @@ def build_equations(reactant_atoms, product_atoms):
     ## coefficients ##
     reactant_coefficients = list(symbols(f'a0:{len(reactant_atoms)}'))
     product_coefficients = list(symbols(f'b0:{len(product_atoms)}')) 
-    product_coefficients = product_coefficients[:-1] + [1] # Ensure the last coefficient is 1
 
     ## equations ##
     equations = []
