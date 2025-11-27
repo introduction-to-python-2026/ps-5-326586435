@@ -1,37 +1,38 @@
 def split_before_uppercases(formula):
-    split_formula = []
-    start = 0
     if not formula:
         return []
+
+    start = 0
+    elements = []
+
     for i in range(1, len(formula)):
         if formula[i].isupper():
-           split_formula.append(formula[start:i])
-           start = i
-    split_formula.append(formula[start:])
-    return split_formula
+            elements.append(formula[start:i])
+            start = i
+
+    elements.append(formula[start:])
+    return elements
+
+ 
 
 def split_at_digit(formula):
-    digit_index = None
     for i, ch in enumerate(formula):
         if ch.isdigit():
-            digit_index = i
-            break
-    if digit_index is None:
-       return formula, 1
-    x = formula[:digit_index]
-    y = int(formula[digit_index:])
-    return x, y
+            return formula[:i], int(formula[i:])
+            
+    return formula, 1
+
     
 def count_atoms_in_molecule(molecular_formula):
     atom_counts = {}
     parts = split_before_uppercases(molecular_formula)
-    for a in parts: 
-       atom, count = split_at_digit(a)
-       if atom in atom_counts:
-        atom_counts[atom] += count
-       else:
-         atom_counts[atom] = count
+
+    for part in parts:
+        atom, count = split_at_digit(part)
+        atom_counts[atom] = atom_counts.get(atom, 0) + count
+
     return atom_counts
+
 
 
 def parse_chemical_reaction(reaction_equation):
