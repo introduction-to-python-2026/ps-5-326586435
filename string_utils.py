@@ -1,9 +1,12 @@
 def split_before_uppercases(formula):
+    """Splits a chemical formula into parts based on uppercase letters.
+    Example: 'NaClMg' → ['Na', 'Cl', 'Mg']
+    """
     if not formula:
         return []
 
-    start = 0
     elements = []
+    start = 0
 
     for i in range(1, len(formula)):
         if formula[i].isupper():
@@ -13,16 +16,18 @@ def split_before_uppercases(formula):
     elements.append(formula[start:])
     return elements
 
- 
 
 def split_at_digit(formula):
+    """Splits an element string into (element, number).
+    Example: 'H2' → ('H', 2)
+             'Mg' → ('Mg', 1)
+    """
     for i, ch in enumerate(formula):
         if ch.isdigit():
             return formula[:i], int(formula[i:])
-            
     return formula, 1
 
-    
+
 def count_atoms_in_molecule(molecular_formula):
     atom_counts = {}
     parts = split_before_uppercases(molecular_formula)
@@ -34,13 +39,13 @@ def count_atoms_in_molecule(molecular_formula):
     return atom_counts
 
 
-
 def parse_chemical_reaction(reaction_equation):
     """Takes a reaction equation (string) and returns reactants and products as lists.  
     Example: 'H2 + O2 -> H2O' → (['H2', 'O2'], ['H2O'])"""
-    reaction_equation = reaction_equation.replace(" ", "")  # Remove spaces for easier parsing
+    reaction_equation = reaction_equation.replace(" ", "")
     reactants, products = reaction_equation.split("->")
     return reactants.split("+"), products.split("+")
+
 
 def count_atoms_in_reaction(molecules_list):
     """Takes a list of molecular formulas and returns a list of atom count dictionaries.  
