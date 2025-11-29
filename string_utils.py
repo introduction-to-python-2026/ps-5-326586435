@@ -1,31 +1,30 @@
 def split_before_uppercases(formula):
-    """Splits a chemical formula into parts based on uppercase letters.
-    Example: 'NaClMg' → ['Na', 'Cl', 'Mg']
-    """
+    split_formula = []
+    start = 0
     if not formula:
         return []
-
-    elements = []
-    start = 0
-
     for i in range(1, len(formula)):
         if formula[i].isupper():
-            elements.append(formula[start:i])
+            split_formula.append(formula[start:i])
             start = i
-
-    elements.append(formula[start:])
-    return elements
-
+    split_formula.append(formula[start:])
+    return split_formula
 
 def split_at_digit(formula):
-    """Splits an element string into (element, number).
-    Example: 'H2' → ('H', 2)
-             'Mg' → ('Mg', 1)
-    """
-    for i, ch in enumerate(formula):
-        if ch.isdigit():
-            return formula[:i], int(formula[i:])
-    return formula, 1
+    x=0
+    y=0
+    digit_index=None
+    for t in range(len(formula)):
+        if formula[t].isdigit():
+            digit_index = t
+            break
+    if digit_index == None:
+        x=formula
+        y=1
+    else:
+        y = int(formula[digit_index:])
+        x = formula[0:digit_index]
+    return x, y
 
 
 def count_atoms_in_molecule(molecular_formula):
